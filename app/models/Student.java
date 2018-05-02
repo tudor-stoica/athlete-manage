@@ -1,4 +1,4 @@
-/*package models;
+package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -29,8 +29,6 @@ public class Student extends BaseModel {
     
     /**
      * Displays the last name and first name of a student
-     * @param lastName String value of the last name of a student
-     * @param firstName String value of the first name of a student
      * @return String value of the students name in the format lastName,firstName
      */
     public String toString() {
@@ -47,7 +45,5 @@ public class Student extends BaseModel {
      * Totals the number of points a student accumulated throughout their high school career
      * @return integer value of the total number of points scored by a particular student
      */
-    
-        
+
 }
-*/
