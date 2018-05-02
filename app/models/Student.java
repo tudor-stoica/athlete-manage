@@ -17,6 +17,6 @@ public class Student extends Model {
     public Payment[] payments;
     
     public String toString() {
-        return lastName + firstName;
+        return lastName + ", " + firstName;
     }
 }
