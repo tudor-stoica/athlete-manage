@@ -1,10 +1,10 @@
-package models;
+/*package models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Student extends Model {
+public class Student extends BaseModel {
     
     @Id
     public int studentNumber;
@@ -20,3 +20,4 @@ public class Student extends Model {
         return lastName + ", " + firstName;
     }
 }
+*/

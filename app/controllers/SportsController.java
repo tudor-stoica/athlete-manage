@@ -1,8 +1,7 @@
 package controllers;
 
 import models.Sport;
-import play.mvc.*;
-import views.html.sports.*;
+import play.mvc.*;import views.html.sports.*;
 
 import java.util.List;
 
