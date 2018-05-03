@@ -33,18 +33,26 @@ public class Student extends BaseModel {
     public String toString() {
         return lastName + ", " + firstName;
     }
-    
+
     /**
      * Takes an integer value of school year and identifies the number of points a student accumulated in that year.
      * @param schoolYear Integer value of the year a student played sports
-     * @return integer value of points accumulated during that year
      */
-    
+    public Integer getPoints(SchoolYear schoolYear){
+        int total = 0;
+        for (int i=0; i < teams.length; i++){
+            if (teams[i].schoolYear == schoolYear){
+                total += teams[i].sport.pointValue;
+            }
+        }
+        return total;
+    }
+
     /**
      * Totals the number of points a student accumulated throughout their high school career
      * @return integer value of the total number of points scored by a particular student
      */
-    public Integer getPoints(){
+    public Integer getTotalPoints(){
         int total = 0;
         for (int i=0; i < teams.length; i++){
             total += teams[i].sport.pointValue;
