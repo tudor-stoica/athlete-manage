@@ -25,7 +25,19 @@ public class Student extends BaseModel {
     public String sex;
     public Payment[] payments;
     public Team[] teams;
-    
+
+
+    public Student(int studentNumber, int oen, String firstName, String lastName, int grade, String email, String sex, Payment[] payments, Team[] teams){
+        this.studentNumber = studentNumber;
+        this.oen = oen;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.grade = grade;
+        this.email = email;
+        this.sex = sex;
+        this.payments = payments;
+        this.teams = teams;
+    }
     /**
      * Displays the last name and first name of a student
      * @return String value of the students name in the format lastName,firstName
