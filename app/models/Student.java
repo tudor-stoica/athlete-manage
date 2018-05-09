@@ -1,6 +1,10 @@
 package models;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 /**
  * This program establishes the "Student" class for the athlete management app. The student class
@@ -14,8 +18,7 @@ import javax.persistence.Id;
 
 @Entity
 public class Student extends BaseModel {
-    
-    @Id
+
     public int studentNumber;
     public int oen;
     public String firstName;
@@ -23,21 +26,16 @@ public class Student extends BaseModel {
     public int grade;
     public String email;
     public String sex;
-    public Payment[] payments;
-    public Team[] teams;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<Payment> payments;
+    @OneToMany(cascade = CascadeType.ALL)
+    public List <Team> team;
 
-
-    public Student(int studentNumber, int oen, String firstName, String lastName, int grade, String email, String sex, Payment[] payments, Team[] teams){
-        this.studentNumber = studentNumber;
-        this.oen = oen;
+    public Student(String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.grade = grade;
-        this.email = email;
-        this.sex = sex;
-        this.payments = payments;
-        this.teams = teams;
     }
+
     /**
      * Displays the last name and first name of a student
      * @return String value of the students name in the format lastName,firstName
@@ -45,30 +43,25 @@ public class Student extends BaseModel {
     public String toString() {
         return lastName + ", " + firstName;
     }
-
+    
     /**
      * Takes an integer value of school year and identifies the number of points a student accumulated in that year.
      * @param schoolYear Integer value of the year a student played sports
+     * @return integer value of points accumulated during that year
      */
     public Integer getPoints(SchoolYear schoolYear){
         int total = 0;
-        for (int i=0; i < teams.length; i++){
-            if (teams[i].schoolYear == schoolYear){
-                total += teams[i].sport.pointValue;
+        for (int i=0; i < team.size(); i++){
+            if (team.get(i).schoolYear == schoolYear){
+                total += team.get(i).sport.pointValue;
             }
         }
         return total;
     }
-
+    
     /**
      * Totals the number of points a student accumulated throughout their high school career
      * @return integer value of the total number of points scored by a particular student
      */
-    public Integer getTotalPoints(){
-        int total = 0;
-        for (int i=0; i < teams.length; i++){
-            total += teams[i].sport.pointValue;
-        }
-        return total;
-    }
+
 }
