@@ -65,8 +65,8 @@ public class Student extends BaseModel {
      */
     public Integer getTotalPoints(){
         int total = 0;
-        for (int i=0; i < teams.length; i++){
-            total += teams[i].sport.pointValue;
+        for (int i=0; i < team.size(); i++){
+            total += team.get(i).sport.pointValue;
         }
         return total;
     }
