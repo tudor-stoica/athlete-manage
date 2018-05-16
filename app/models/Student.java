@@ -29,7 +29,7 @@ public class Student extends BaseModel {
     @OneToMany(cascade = CascadeType.ALL)
     public List<Payment> payments;
     @OneToMany(cascade = CascadeType.ALL)
-    public List <Team> team;
+    public List <Spot> spots;
 
     public Student(String firstName, String lastName){
         this.firstName = firstName;
