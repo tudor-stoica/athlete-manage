@@ -58,6 +58,15 @@ public class SchoolYearTest {
         assertEquals("April '18 should be rendered as '2017-2018'", "2017-2018", result);
     }
 
+    @Test
+    public void testConvertStringYearToDateTime(){
+        String year = "  2016 -2017";
+        LocalDateTime result = SchoolYear.getSchoolYear(year);
+        LocalDateTime expected = LocalDateTime.of(2016, 9, 1, 0, 0, 0);
+        assertEquals("The school year should be 2016/9/1", expected, result);
+
+    }
+
 
 }
 
