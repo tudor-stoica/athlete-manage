@@ -52,7 +52,7 @@ public class Student extends BaseModel {
     public Integer getPoints(SchoolYear schoolYear){
         int total = 0;
         for (int i=0; i < team.size(); i++){
-            if (team.get(i).schoolYear == schoolYear){
+            if (team.get(i).schoolYear.equals(schoolYear)){
                 total += team.get(i).sport.pointValue;
             }
         }
@@ -70,5 +70,4 @@ public class Student extends BaseModel {
         }
         return total;
     }
-
 }
