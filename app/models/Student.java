@@ -46,7 +46,7 @@ public class Student extends BaseModel {
     
     /**
      * Totals the number of points a student accumulated depending on their positionson(s) on various teams 
-     * @return integer value of the total number of points earned by a particuleiar student
+     * @return integer value of the total number of points earned by a particular student
      */
     public Integer getTotalPoints(){
         int total = 0;
