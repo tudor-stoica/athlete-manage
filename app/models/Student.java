@@ -45,7 +45,7 @@ public class Student extends BaseModel {
     }
     
     /**
-     * Totals the number of points a student accumulated depending on their positionson(s) on various teams 
+     * Totals the number of points a student accumulated depending on their positionson(s) on various teams throughout their high school career
      * @return integer value of the total number of points earned by a particular student
      */
     public Integer getTotalPoints(){
@@ -56,6 +56,10 @@ public class Student extends BaseModel {
         return total;
     }
     
+    /**
+     * Totals the number of points a student accumulated depending on their positionson(s) on various teams for this year
+     * @return integer value of the  number of points earned by a particular student this year
+     */
     public Integer getPoints(){
         int total = 0;
         for (int i = 0; i < spots.size(); i++){
