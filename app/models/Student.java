@@ -55,4 +55,14 @@ public class Student extends BaseModel {
         } 
         return total;
     }
+    
+    public Integer getPoints(){
+        int total = 0;
+        for (int i = 0; i < spots.size(); i++){
+            if (spots.get(i).team.schoolYear == SchoolYear.currentSchoolYear()){
+                total += spots.get(i).points;
+            }
+        }
+        return total;
+    }
 }
