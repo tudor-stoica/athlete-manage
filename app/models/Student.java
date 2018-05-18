@@ -1,10 +1,12 @@
 package models;
 
+import io.ebean.Finder;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.List;
+import helpers.SchoolYear;
 
 /**
  * This program establishes the "Student" class for the athlete management app. The student class
@@ -43,19 +45,19 @@ public class Student extends BaseModel {
     public String toString() {
         return lastName + ", " + firstName;
     }
-    
+
     /**
-     * Totals the number of points a student accumulated depending on their positionson(s) on various teams throughout their high school career
-     * @return integer value of the total number of points earned by a particular student
+     * Totals the number of points a student accumulated throughout their high school career
+     * @return integer value of the total number of points scored by a particular student
      */
     public Integer getTotalPoints(){
         int total = 0;
         for (int i = 0; i < spots.size(); i++){
             total += spots.get(i).points;
-        } 
+        }
         return total;
     }
-    
+
     /**
      * Totals the number of points a student accumulated depending on their positionson(s) on various teams for this year
      * @return integer value of the  number of points earned by a particular student this year
@@ -69,4 +71,8 @@ public class Student extends BaseModel {
         }
         return total;
     }
+
+
+    //Finder for Student class
+    public static Finder<Integer, Student> find = new Finder<>(Student.class);
 }
