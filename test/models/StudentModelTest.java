@@ -2,6 +2,11 @@ package models;
 
 import org.junit.*;
 import play.test.WithApplication;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 import static play.test.Helpers.*;
 
@@ -42,13 +47,11 @@ public class StudentModelTest extends WithApplication {
     @Test
     public void dataBaseTest(){
         new Student ("John", "Doe").save();
-        Student test = Student.find.query().where().eq("firstName", "John").findOne();
+        Student test = Student.find.query().where().eq("first_name", "John").findOne();
         assertEquals("John", test.firstName);
+        
+        
+     //NOTE : Tests need to be written for getTotalPoints and getPoints methods!
+        
     }
-
-    @Test
-    public void testGetPoints(){
-        Team teams = new Team();
-    }
-
 }
