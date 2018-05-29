@@ -1,0 +1,19 @@
+@(sportForm : Form[Sport])
+
+@import helper._
+
+@implicitField = @{ FieldConstructor(formFieldTemplate.f) }
+
+@main("Create Sport"){
+  <h1>Create Sport</h1>
+
+  @form(CSRF(routes.SportsController.save())) {
+    @inputText(sportForm("name"), 'class -> "validate")
+    @inputText(sportForm("pointValue"), 'class -> "validate")
+
+    <button class="waves-effect waves-light btn" type="submit" name="action">
+      <i class="material-icons left">add</i>
+      Save
+    </button>
+  }
+}

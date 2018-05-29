@@ -6,15 +6,19 @@
       <h1>Sports</h1>
       <ul class="collection">
         @for(sport <- sports) {
-          @* TODO: add link to @routes.SportsController.edit(sport.getId()) *@
           <li class="collection-item">
             <div>
               @sport.name <span class="grey-text">(@sport.pointValue points)</span>
-              <a href="#!" class="secondary-content"><i class="material-icons left tooltipped" data-position="right" data-tooltip="Edit @sport.name">edit</i></a>
+              <a href="@routes.SportsController.edit(sport.id)" class="secondary-content">
+                <i class="material-icons left tooltipped" data-position="right" data-tooltip="Edit @sport.name">edit</i>
+              </a>
             </div>
           </li>
         }
       </ul>
       </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large green" href="@routes.SportsController.create()"><i class="material-icons">add</i></a>
     </div>
 }

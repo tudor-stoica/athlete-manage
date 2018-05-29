@@ -3,6 +3,16 @@
 
 # --- !Ups
 
+create table admin (
+  id                            integer auto_increment not null,
+  created_at                    timestamp,
+  updated_at                    timestamp,
+  first_name                    varchar(255),
+  last_name                     varchar(255),
+  email                         varchar(255),
+  constraint pk_admin primary key (id)
+);
+
 create table sport (
   id                            integer auto_increment not null,
   created_at                    timestamp,
@@ -14,6 +24,8 @@ create table sport (
 
 
 # --- !Downs
+
+drop table if exists admin;
 
 drop table if exists sport;
 

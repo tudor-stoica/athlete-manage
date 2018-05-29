@@ -7,10 +7,12 @@ GET     /                           controllers.HomeController.index
 
 # Sports
 GET     /sports                     controllers.SportsController.index
-
+GET     /sports/create              controllers.SportsController.create
+POST    /sports/save                controllers.SportsController.save
+GET     /sports/edit/:id            controllers.SportsController.edit(id : Integer)
+PUT     /sports/edit                controllers.SportsController.update
+DELETE  /sports/delete/:id          controllers.SportsController.destroy(id : Integer)
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
-
