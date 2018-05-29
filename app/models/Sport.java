@@ -13,13 +13,13 @@ public class Sport extends BaseModel {
     public String name;
 
     @Constraints.Max(10)
+    @Constraints.Required
     public Integer pointValue;
     
     public Sport(String name, Integer pointValue) {
         this.name = name;
         this.pointValue = pointValue;
     }
-    
     
     public static Finder<Integer, Sport> find = new Finder<>(Sport.class);
   
