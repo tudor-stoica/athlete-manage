@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Sport;
-
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.*;
