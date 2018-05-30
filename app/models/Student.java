@@ -23,10 +23,7 @@ public class Student extends Person {
 
     public int studentNumber;
     public int oen;
-    public String firstName;
-    public String lastName;
     public int grade;
-    public String email;
     public String sex;
     @OneToMany(cascade = CascadeType.ALL)
     public List <Spot> spots;
