@@ -6,11 +6,12 @@
       <h1>Sports</h1>
       <ul class="collection">
         @for(sport <- sports) {
-          @* TODO: add link to  *@
           <li class="collection-item">
             <div>
               @sport.name <span class="grey-text">(@sport.pointValue points)</span>
-              <a href="@routes.SportsController.edit(sport.id)" class="secondary-content"><i class="material-icons left tooltipped" data-position="right" data-tooltip="Edit @sport.name">edit</i></a>
+              <a href="@routes.SportsController.edit(sport.id)" class="secondary-content">
+                <i class="material-icons left tooltipped" data-position="right" data-tooltip="Edit @sport.name">edit</i>
+              </a>
             </div>
           </li>
         }
