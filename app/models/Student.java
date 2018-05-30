@@ -3,8 +3,11 @@ package models;
 import io.ebean.Finder;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import helpers.SchoolYear;
 
@@ -25,11 +28,20 @@ public class Student extends Person {
     public int oen;
     public int grade;
     public String sex;
-    @OneToMany(cascade = CascadeType.ALL)
-    public List <Spot> spots;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    public List <Spot> spots = new ArrayList<>();
 
     public Student(String firstName, String lastName){
-        super(firstName, LastName);
+        super(firstName, lastName, "email@email.com");
+    }
+
+    public Student(String firstName, String lastName, String email, int studentNumber, int oen, int grade, String sex) {
+        super(firstName, lastName, email);
+        this.studentNumber = studentNumber;
+        this.oen = oen;
+        this.grade = grade;
+        this.sex = sex;
     }
 
     /**
@@ -37,29 +49,30 @@ public class Student extends Person {
      * @return String value of the students name in the format lastName,firstName
      */
     public String toString() {
-        return this.lastName + ", " + this.firstName;
+        return super.getLastFirst();
     }
 
     /**
      * Totals the number of points a student accumulated throughout their high school career
      * @return integer value of the total number of points scored by a particular student
      */
-    public Integer getPoints(){
+    public Integer getPoints() {
         int total = 0;
-        for (int i = 0; i < spots.size(); i++){
+        for (int i = 0; i < spots.size(); i++) {
             total += spots.get(i).points;
         }
         return total;
     }
 
     /**
-     * Totals the number of points a student accumulated depending on their positionson(s) on various teams for a specific year
+     * Totals the number of points a student accumulated depending on their position(s) on various teams for a specific year
+     * @param schoolYear The school year (Sep 01 referenced)
      * @return integer value of the  number of points earned by a particular student this year
      */
-    public Integer getPoints(LocalDateTime schoolYear){
+    public Integer getPoints(LocalDateTime schoolYear) {
         int total = 0;
-        for (int i = 0; i < spots.size(); i++){
-            if (spots.get(i).team.schoolYear == schoolYear()){
+        for (int i = 0; i < spots.size(); i++) {
+            if (spots.get(i).team.schoolYear.equals(schoolYear)) {
                 total += spots.get(i).points;
             }
         }

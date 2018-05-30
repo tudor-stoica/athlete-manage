@@ -18,36 +18,40 @@ public class StudentModelTest extends WithApplication {
     }
 
     @Test
-    public void testStudentIdInfo(){
-        Student test = new Student("John", "Doe");
-        test.studentNumber = 1034012;
-        test.oen = 365726342;
-        test.email = "john.doe19@ycdsbk12.ca";
-        assertEquals(1034012, test.studentNumber);
-        assertEquals(365726342, test.oen);
-        assertEquals("john.doe19@ycdsbk12.ca", test.email);
-    }
-
-    @Test
-    public void testStudentBasicInfo(){
-        Student test = new Student("John", "Doe");
-        test.sex = "Male";
-        test.grade = 12;
-        assertEquals("John",test.firstName );
-        assertEquals("Doe", test.lastName);
-        assertEquals(12, test.grade);
+    public void testShouldDBSaveAndRecallOk(){
+        //String firstName, String lastName, String email, int studentNumber, int oen, int grade, String sex
+        new Student ("John", "Doe", "jd@test.com", 12345, 4321, 11, "male").save();
+        Student student = Student.find.query().where().eq("oen", 4321).findOne();
+        assertEquals("John", student.firstName);
     }
 
     @Test
     public void testToString() {
-        Student test = new Student("John", "Doe");
-        assertEquals("Doe, John", test.toString());
+        Student student = new Student("John", "Doe");
+        assertEquals("Doe, John", student.toString());
     }
 
     @Test
-    public void dataBaseTest(){
-        new Student ("John", "Doe").save();
-        Student test = Student.find.query().where().eq("first_name", "John").findOne();
-        assertEquals("John", test.firstName);
+    public void testSpotsShouldCascadeSave() {
+        Student student = new Student("John", "Doe");
+        student.spots.add(new Spot());
+        student.spots.add(new Spot());
+        student.save();
+        int numSpots = Student.find.query().where().eq("first_name", "John").findOne().spots.size();
+        assertEquals(2, numSpots);
     }
+
+    @Test
+    public void testGetPointsShouldBe_11() {
+        Student student = new Student("John", "Doe");
+        Spot s1 = new Spot();
+        Spot s2 = new Spot();
+        s1.points = 5;
+        s2.points = 6;
+        student.spots.add(s1);
+        student.spots.add(s2);
+        assertEquals(11, student.getPoints().intValue());
+    }
+
+    // TODO: test getPoints(LocalDateTime) : Integer
 }
