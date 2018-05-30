@@ -44,7 +44,7 @@ public class Student extends Person {
      * Totals the number of points a student accumulated throughout their high school career
      * @return integer value of the total number of points scored by a particular student
      */
-    public Integer getTotalPoints(){
+    public Integer getPoints(){
         int total = 0;
         for (int i = 0; i < spots.size(); i++){
             total += spots.get(i).points;
