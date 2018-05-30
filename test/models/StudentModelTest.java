@@ -49,9 +49,5 @@ public class StudentModelTest extends WithApplication {
         new Student ("John", "Doe").save();
         Student test = Student.find.query().where().eq("first_name", "John").findOne();
         assertEquals("John", test.firstName);
-        
-        
-     //NOTE : Tests need to be written for getTotalPoints and getPoints methods!
-        
     }
 }
