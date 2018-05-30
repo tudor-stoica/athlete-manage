@@ -19,7 +19,7 @@ import helpers.SchoolYear;
  */
 
 @Entity
-public class Student extends BaseModel {
+public class Student extends Person {
 
     public int studentNumber;
     public int oen;
@@ -29,13 +29,10 @@ public class Student extends BaseModel {
     public String email;
     public String sex;
     @OneToMany(cascade = CascadeType.ALL)
-    public List<Payment> payments;
-    @OneToMany(cascade = CascadeType.ALL)
     public List <Spot> spots;
 
     public Student(String firstName, String lastName){
-        this.firstName = firstName;
-        this.lastName = lastName;
+        super(firstName, LastName);
     }
 
     /**
@@ -43,7 +40,7 @@ public class Student extends BaseModel {
      * @return String value of the students name in the format lastName,firstName
      */
     public String toString() {
-        return lastName + ", " + firstName;
+        return this.lastName + ", " + this.firstName;
     }
 
     /**
@@ -59,13 +56,13 @@ public class Student extends BaseModel {
     }
 
     /**
-     * Totals the number of points a student accumulated depending on their positionson(s) on various teams for this year
+     * Totals the number of points a student accumulated depending on their positionson(s) on various teams for a specific year
      * @return integer value of the  number of points earned by a particular student this year
      */
-    public Integer getPoints(){
+    public Integer getPoints(LocalDateTime schoolYear){
         int total = 0;
         for (int i = 0; i < spots.size(); i++){
-            if (spots.get(i).team.schoolYear == SchoolYear.currentSchoolYear()){
+            if (spots.get(i).team.schoolYear == schoolYear()){
                 total += spots.get(i).points;
             }
         }
