@@ -3,7 +3,8 @@ package models;
 import org.junit.*;
 import play.test.WithApplication;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -18,7 +19,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testCanSaveAndFindTeam() {
-        new Team("Junior", "Male", "Basketball").save();
+        new Team("Junior", "Male", "Basketball", 0, LocalDateTime.now(), "Winter").save();
         Team team = Team.find.query().where()
                 .eq("division", "Junior")
                 .findOne();
@@ -29,7 +30,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testToString() {
-        Team team = new Team("Senior", "Female", "Basketball");
+        Team team = new Team("Senior", "Female", "Basketball", 0, LocalDateTime.now(), "Winter");
         assertEquals("Senior Female Basketball", team.toString());
     }
 
@@ -37,7 +38,7 @@ public class TeamModelTest extends WithApplication{
     public void testAddPlayer() {
         Student student = new Student();
         student.save();
-        Team team = new Team("Senior", "Male", "Soccer");
+        Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
 
         team.addPlayer(student.id);
         team.save();
@@ -50,10 +51,13 @@ public class TeamModelTest extends WithApplication{
     public void testDeletePlayer(){
         Student student = new Student();
         student.save();
-        Team team = new Team("Senior", "Male", "Soccer");
+        Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
 
         team.addPlayer(student.id);
         team.save();
+
+        assertEquals(1, team.spots.size());
+
         team.removePlayer(student.id);
         team.save();
 
@@ -62,17 +66,17 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testFindByCoach(){
-        Team basketball = new Team("", "", "Basketball");
+        Team basketball = new Team("", "", "Basketball", 0, LocalDateTime.now(), "Winter");
         basketball.coaches.add("emailOne");
         basketball.coaches.add("emailTwo");
         basketball.save();
 
-        Team baseball = new Team("", "", "Baseball");
+        Team baseball = new Team("", "", "Baseball", 0, LocalDateTime.now(), "Winter");
         baseball.coaches.add("emailThree");
         baseball.coaches.add("emailOne");
         baseball.save();
 
-        Team rugby = new Team("", "", "Rugby");
+        Team rugby = new Team("", "", "Rugby", 0, LocalDateTime.now(), "Winter");
         rugby.coaches.add("EmailTwo");
         rugby.coaches.add("EmailThree");
         rugby.save();
