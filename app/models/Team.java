@@ -2,6 +2,7 @@ package models;
 
 import io.ebean.Finder;
 import io.ebean.annotation.DbArray;
+import play.data.validation.Constraints;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,31 +10,39 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Team extends BaseModel{
+    @Constraints.Required
     public String division;
+    @Constraints.Required
     public String gender;
-
-    // team only needs one sport
-    @ManyToOne(cascade = CascadeType.ALL)
+    @Constraints.Required
     public String sport;
+    @Constraints.Required
     public String season;
     @OneToMany(cascade = CascadeType.REMOVE)
     public List<Spot> spots = new ArrayList<>();
+    @Constraints.Required
     public LocalDateTime schoolYear;
     public String banquetInfo;
     @DbArray
     public List<String> coaches = new ArrayList<>();
     public Student MVP;
     public Student MIP;
+    @Constraints.Required
+    public Integer defaultPoints;
 
-    //For testing purposes
-    public Team(String division, String gender, String sport){
+    public Team(String division, String gender, String sport, Integer defaultPoints, LocalDateTime schoolYear, String season){
         this.division = division;
         this.gender = gender;
         this.sport = sport;
+        this.defaultPoints = defaultPoints;
+        this.schoolYear = schoolYear;
+        this.season = season;
     }
 
     public String toString(){
@@ -60,13 +69,12 @@ public class Team extends BaseModel{
                 spots.remove(spot);
             }
         }
-
-
     }
-
-    public static Finder<Integer, Team> find = new Finder<>(Team.class);
 
     public static List<Team> findByCoach(String email){
         return find.query().where().contains("coaches", email).findList();
     }
+
+    public static Finder<Integer, Team> find = new Finder<>(Team.class);
+
 }
