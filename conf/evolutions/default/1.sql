@@ -24,10 +24,13 @@ create table sport (
 
 create table spot (
   id                            integer auto_increment not null,
-  student_id                    integer not null,
   created_at                    timestamp,
   updated_at                    timestamp,
+  team_id                       integer,
+  student_id                    integer,
   points                        integer not null,
+  ofsaa                         boolean,
+  paid                          boolean,
   constraint pk_spot primary key (id)
 );
 
@@ -53,11 +56,17 @@ create table team (
   constraint pk_team primary key (id)
 );
 
+alter table spot add constraint fk_spot_team_id foreign key (team_id) references team (id) on delete restrict on update restrict;
+create index ix_spot_team_id on spot (team_id);
+
 alter table spot add constraint fk_spot_student_id foreign key (student_id) references student (id) on delete restrict on update restrict;
 create index ix_spot_student_id on spot (student_id);
 
 
 # --- !Downs
+
+alter table spot drop constraint if exists fk_spot_team_id;
+drop index if exists ix_spot_team_id;
 
 alter table spot drop constraint if exists fk_spot_student_id;
 drop index if exists ix_spot_student_id;
