@@ -7,17 +7,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-// A TON OF ERRORS
-// java.sql.Statement.execute: create table spot
-// Column "team" not found;
-//@Table(
-//        uniqueConstraints =
-//        @UniqueConstraint(columnNames = {"team", "student"})
-//)
-
+/**
+ * The spot class that are part of the
+ * positions in a team. Contains the points, student, team, ofsaa, and whether it was paid for
+ *
+ * @author vic
+ */
+@Table(
+    uniqueConstraints = @UniqueConstraint(columnNames = {"team_id", "student_id"})
+)
 @Entity
 public class Spot extends BaseModel {
-
     @ManyToOne
     public Team team;
     @ManyToOne
@@ -27,13 +27,20 @@ public class Spot extends BaseModel {
     public Boolean ofsaa;
     public Boolean paid;
 
-
-    public Spot(Team team, int points, Student student, Boolean ofsaa, Boolean paid) {
+    /**
+     * the constructor
+     * @param team
+     *         the object of the team
+     * @param student
+     *          an object of the student that belongs in that spot
+     */
+    public Spot(Team team,Student student) {
         this.team = team;
-        this.points = points;
+        points = team.defaultPoints;
         this.student = student;
-        this.ofsaa = ofsaa;
-        this.paid = paid;
+        ofsaa = false;
+        paid = false;
+
     }
 
     public static Finder<Integer, Spot> find = new Finder<>(Spot.class);

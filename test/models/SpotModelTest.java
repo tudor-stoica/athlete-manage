@@ -17,19 +17,38 @@ public class SpotModelTest extends WithApplication {
 
     @Test
     public void testStoreSpotDB() {
-        Team t1 = new Team();
-        //new Spot(t1,0,stu,false,false).save();
-        new Student("vic", "ko").save();
-        new Spot(t1,0,Student.find.query().where().eq("firstName", "vic").findOne(),false,false).save();
+        Team team = new Team("baseball",100);
+        team.save();
 
-        Spot spot2 = Spot.find.query().where()
+        Student student = new Student("vic", "ko");
+        student.save();
+
+        new Spot(team, student).save();
+
+        Spot spot = Spot.find.query().where()
                 .eq("student.firstName", "vic")
                 .findOne();
-        assertNotNull(spot2);
-        //assertEquals(t1, spot2.team); //errors (b/c needs to be in DB)?
-        assertEquals("vic", spot2.student.firstName);
-        assertEquals(0, spot2.points);
+
+        assertNotNull(spot);
+        assertEquals("baseball", spot.team.sport);
+        assertEquals("vic", spot.student.firstName);
+        assertEquals(100, spot.points);
     }
+
+    // test not allowed to have two spots with same team and student
+    @Test(expected = io.ebean.DuplicateKeyException.class)
+    public void testDuplicate() {
+        new Team("baseball",100).save();
+        new Student("vic", "ko").save();
+
+        Team team = Team.find.query().where().eq("sport", "baseball").findOne();
+        Student student = Student.find.query().where().eq("firstName", "vic").findOne();
+
+        new Spot(team, student).save();
+        new Spot(team, student).save();
+
+    }
+
     
 }
 
