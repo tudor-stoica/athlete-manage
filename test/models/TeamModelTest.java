@@ -36,7 +36,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testAddPlayer() {
-        Student student = new Student();
+        Student student = new Student("Joey", "Test", "email", 0, 0, 11, "Male");
         student.save();
         Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
 
@@ -49,7 +49,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testDeletePlayer(){
-        Student student = new Student();
+        Student student = new Student("Joey", "Test", "email", 0, 0, 11, "Male");
         student.save();
         Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
 
@@ -83,7 +83,5 @@ public class TeamModelTest extends WithApplication{
 
         List<Team> teams = Team.findByCoach("emailOne");
         assertEquals(2, teams.size());
-
     }
-
 }

@@ -6,13 +6,10 @@ import play.data.validation.Constraints;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Team extends BaseModel{
@@ -24,8 +21,10 @@ public class Team extends BaseModel{
     public String sport;
     @Constraints.Required
     public String season;
+
     @OneToMany(cascade = CascadeType.REMOVE)
     public List<Spot> spots = new ArrayList<>();
+
     @Constraints.Required
     public LocalDateTime schoolYear;
     public String banquetInfo;
@@ -54,7 +53,8 @@ public class Team extends BaseModel{
     }
 
     public void addPlayer(Student student) {
-        Spot newPlayer = new Spot(student);
+        Spot newPlayer = new Spot();
+        newPlayer.student = student;
         spots.add(newPlayer);
     }
 
@@ -77,4 +77,7 @@ public class Team extends BaseModel{
 
     public static Finder<Integer, Team> find = new Finder<>(Team.class);
 
+    public static List<Team> allTeams(){
+        return find.all();
+    }
 }
