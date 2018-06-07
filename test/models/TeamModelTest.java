@@ -1,5 +1,6 @@
 package models;
 
+import helpers.SchoolYear;
 import org.junit.*;
 import play.test.WithApplication;
 
@@ -31,7 +32,7 @@ public class TeamModelTest extends WithApplication{
     @Test
     public void testToString() {
         Team team = new Team("Senior", "Female", "Basketball", 0, LocalDateTime.now(), "Winter");
-        assertEquals("Senior Female Basketball", team.toString());
+        assertEquals("Senior Girls' Basketball", team.toString());
     }
 
     @Test

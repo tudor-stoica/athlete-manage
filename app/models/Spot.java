@@ -11,4 +11,10 @@ public class Spot extends BaseModel {
     int points;
     @ManyToOne
     Student student;
+
+    public Spot(Team team, Student student) {
+        this.team = team;
+        this.student = student;
+        this.points = team.defaultPoints;
+    }
 }

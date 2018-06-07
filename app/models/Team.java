@@ -9,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Team extends BaseModel{
@@ -45,7 +47,12 @@ public class Team extends BaseModel{
     }
 
     public String toString(){
-        return division + " " + gender+ " " + sport;
+        Map<String, String> genderMap = new HashMap<String, String>() {{
+            put("Female", "Girls'");
+            put("Male", "Boys'");
+        }};
+
+        return division + " " + genderMap.get(gender) + " " + sport;
     }
 
     public void addPlayer(Integer id) {
@@ -53,9 +60,7 @@ public class Team extends BaseModel{
     }
 
     public void addPlayer(Student student) {
-        Spot newPlayer = new Spot();
-        newPlayer.student = student;
-        spots.add(newPlayer);
+        spots.add(new Spot(this, student));
     }
 
     public void removePlayer(Integer id) {
@@ -64,7 +69,7 @@ public class Team extends BaseModel{
 
     public void removePlayer(Student student){
         for(int i = 0; i < spots.size(); i++) {
-            if (spots.get(i).student.id == student.id) {
+            if (spots.get(i).student.id.equals(student.id)) {
                 Spot spot = spots.get(i);
                 spots.remove(spot);
             }
