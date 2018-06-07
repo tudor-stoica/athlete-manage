@@ -13,13 +13,5 @@ GET     /sports/edit/:id            controllers.SportsController.edit(id : Integ
 PUT     /sports/edit                controllers.SportsController.update
 DELETE  /sports/delete/:id          controllers.SportsController.destroy(id : Integer)
 
-#Teams
-GET     /teams                      controllers.TeamController.index()
-GET     /teams/createTeam           controllers.TeamController.createTeam()
-GET     /teams/saveTeam             controllers.TeamController.saveTeam()
-GET     /teams/removeTeam           controllers.TeamController.removeTeam()
-GET     /teams/addStudent           controllers.TeamController.addStudent()
-GET     /teams/removeStudent        controllers.TeamController.removeStudent()
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
