@@ -32,6 +32,7 @@ create table spot (
   ofsaa                         boolean,
   paid                          boolean,
   constraint uq_spot_team_id_student_id unique (team_id,student_id),
+
   constraint pk_spot primary key (id)
 );
 
@@ -53,9 +54,14 @@ create table team (
   id                            integer auto_increment not null,
   created_at                    timestamp,
   updated_at                    timestamp,
-  school_year                   timestamp,
+  division                      varchar(255),
+  gender                        varchar(255),
   sport                         varchar(255),
-  default_points                integer not null,
+  season                        varchar(255),
+  school_year                   timestamp,
+  banquet_info                  varchar(255),
+  coaches                       array,
+  default_points                integer,
   constraint pk_team primary key (id)
 );
 

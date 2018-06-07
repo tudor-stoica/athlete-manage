@@ -18,6 +18,7 @@ import javax.persistence.UniqueConstraint;
 )
 @Entity
 public class Spot extends BaseModel {
+
     @ManyToOne
     public Team team;
     @ManyToOne
@@ -36,7 +37,7 @@ public class Spot extends BaseModel {
      */
     public Spot(Team team,Student student) {
         this.team = team;
-        points = team.defaultPoints;
+        this.points = team.defaultPoints;
         this.student = student;
         ofsaa = false;
         paid = false;
