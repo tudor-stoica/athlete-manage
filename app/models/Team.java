@@ -18,35 +18,48 @@ import java.util.Map;
 public class Team extends BaseModel{
     @Constraints.Required
     public String division;
+
     @Constraints.Required
     public String gender;
+
     @Constraints.Required
-    public String sport;
+    public String sportName;
+
     @Constraints.Required
     public String season;
 
-    @OneToMany(cascade = CascadeType.REMOVE)
-    public List<Spot> spots = new ArrayList<>();
+    @OneToMany
+    public List<Spot> roster = new ArrayList<>();
 
     @Constraints.Required
     public LocalDateTime schoolYear;
-    public String banquetInfo;
-    @DbArray
-    public List<String> coaches = new ArrayList<>();
-    public Student MVP;
-    public Student MIP;
+
     @Constraints.Required
     public Integer defaultPoints;
 
-    public Team(String division, String gender, String sport, Integer defaultPoints, LocalDateTime schoolYear, String season){
+    @DbArray
+    public List<String> coaches = new ArrayList<>();
+
+    public Student mvp;
+    public Student mip;
+    public String banquetInfo;
+
+
+    public Team(String division, String gender, String sportName, Integer defaultPoints, LocalDateTime schoolYear, String season){
         this.division = division;
         this.gender = gender;
-        this.sport = sport;
+        this.sportName = sportName;
         this.defaultPoints = defaultPoints;
         this.schoolYear = schoolYear;
         this.season = season;
     }
-  
+
+    public static Team create(String division, String gender, String sportName, Integer defaultPoints, LocalDateTime schoolYear, String season) {
+        Team t = new Team(division, gender, sportName, defaultPoints, schoolYear, season);
+        t.save();
+        return t;
+    }
+
 
     public String toString(){
         Map<String, String> genderMap = new HashMap<String, String>() {{
@@ -54,7 +67,7 @@ public class Team extends BaseModel{
             put("Male", "Boys'");
         }};
 
-        return division + " " + genderMap.get(gender) + " " + sport;
+        return division + " " + genderMap.get(gender) + " " + sportName;
     }
 
     public void addPlayer(Integer id) {
@@ -62,7 +75,7 @@ public class Team extends BaseModel{
     }
 
     public void addPlayer(Student student) {
-        spots.add(new Spot(this, student));
+        roster.add(Spot.create(this, student));
     }
 
     public void removePlayer(Integer id) {
@@ -70,12 +83,18 @@ public class Team extends BaseModel{
     }
 
     public void removePlayer(Student student){
-        for(int i = 0; i < spots.size(); i++) {
-            if (spots.get(i).student.id.equals(student.id)) {
-                Spot spot = spots.get(i);
-                spots.remove(spot);
-            }
-        }
+        Spot spot = Spot.find.query().where()
+                .eq("team", this)
+                .eq("student", student)
+                .findOne();
+
+        roster.remove(spot);
+        spot.delete();
+    }
+
+    public void addCoach(String email) {
+        coaches.add(email);
+        this.save();
     }
 
     public static List<Team> findByCoach(String email){
@@ -84,7 +103,4 @@ public class Team extends BaseModel{
 
     public static Finder<Integer, Team> find = new Finder<>(Team.class);
 
-    public static List<Team> allTeams(){
-        return find.all();
-    }
 }

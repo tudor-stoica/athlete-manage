@@ -21,10 +21,11 @@ public class Spot extends BaseModel {
 
     @ManyToOne
     public Team team;
+
     @ManyToOne
     public Student student;
 
-    public int points;
+    public Integer points;
     public Boolean ofsaa;
     public Boolean paid;
 
@@ -46,4 +47,9 @@ public class Spot extends BaseModel {
 
     public static Finder<Integer, Spot> find = new Finder<>(Spot.class);
 
+    public static Spot create(Team team, Student student) {
+        Spot s = new Spot(team, student);
+        s.save();
+        return s;
+    }
 }

@@ -29,7 +29,7 @@ public class Student extends Person {
     public int grade;
     public String sex;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany
     public List <Spot> spots = new ArrayList<>();
 
     public Student(String firstName, String lastName){
@@ -42,6 +42,12 @@ public class Student extends Person {
         this.oen = oen;
         this.grade = grade;
         this.sex = sex;
+    }
+
+    public static Student create(String firstName, String lastName, String email, int studentNumber, int oen, int grade, String sex) {
+        Student s = new Student(firstName, lastName, email, studentNumber, oen, grade, sex);
+        s.save();
+        return s;
     }
 
     /**

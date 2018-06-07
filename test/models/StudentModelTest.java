@@ -32,16 +32,6 @@ public class StudentModelTest extends WithApplication {
     }
 
     @Test
-    public void testSpotsShouldCascadeSave() {
-        Student student = new Student("John", "Doe");
-        student.spots.add(new Spot());
-        student.spots.add(new Spot());
-        student.save();
-        int numSpots = Student.find.query().where().eq("first_name", "John").findOne().spots.size();
-        assertEquals(2, numSpots);
-    }
-
-    @Test
     public void testGetPointsShouldBe_11() {
         Student student = new Student("John", "Doe");
         Spot s1 = new Spot();

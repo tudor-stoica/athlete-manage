@@ -4,7 +4,6 @@ import helpers.SchoolYear;
 import org.junit.*;
 import play.test.WithApplication;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class TeamModelTest extends WithApplication{
                 .findOne();
         assertEquals("Junior", team.division);
         assertEquals("Male", team.gender);
-        assertEquals("Basketball", team.sport);
+        assertEquals("Basketball", team.sportName);
     }
 
     @Test
@@ -39,50 +38,59 @@ public class TeamModelTest extends WithApplication{
     public void testAddPlayer() {
         Student student = new Student("Joey", "Test", "email", 0, 0, 11, "Male");
         student.save();
-        Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
 
-        team.addPlayer(student.id);
+        Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
         team.save();
 
-        Integer id = team.spots.get(team.spots.size() -  1).student.id;
-        assertEquals(student.id, id);
+        team.addPlayer(student);
+
+        Spot spot = Spot.find.query()
+                .fetch("team")
+                .fetch("student")
+                .where()
+                .eq("team.id", team.id)
+                .eq("student.id", student.id)
+                .findOne();
+
+        assertNotNull("Spot entry should be found.", spot);
+        assertEquals(student.firstName, spot.student.firstName);
+        assertEquals(team.toString(), spot.team.toString());
     }
 
     @Test
     public void testDeletePlayer(){
-        Student student = new Student("Joey", "Test", "email", 0, 0, 11, "Male");
-        student.save();
-        Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
+        Student student = Student.create("Joey", "Test", "email", 0, 0, 11, "Male");
+        Team team = Team.create("Senior", "Male", "Soccer", 5, SchoolYear.currentSchoolYear(), "Winter");
 
         team.addPlayer(student.id);
-        team.save();
-
-        assertEquals(1, team.spots.size());
+        assertEquals(1, team.roster.size());
 
         team.removePlayer(student.id);
-        team.save();
+        assertEquals(0, team.roster.size());
 
-        assertEquals(0, team.spots.size());
+        Spot removedSpot = Spot.find.query().where()
+                .eq("team", team)
+                .eq("student", student)
+                .findOne();
+        assertNull("Spot should be removed from Database.", removedSpot);
     }
 
     @Test
     public void testFindByCoach(){
-        Team basketball = new Team("", "", "Basketball", 0, LocalDateTime.now(), "Winter");
-        basketball.coaches.add("emailOne");
-        basketball.coaches.add("emailTwo");
-        basketball.save();
+        Team basketball = Team.create("", "", "Basketball", 0, SchoolYear.currentSchoolYear(), "Winter");
+        basketball.addCoach("email@One.com");
+        basketball.addCoach("email@Two.com");
 
-        Team baseball = new Team("", "", "Baseball", 0, LocalDateTime.now(), "Winter");
-        baseball.coaches.add("emailThree");
-        baseball.coaches.add("emailOne");
-        baseball.save();
+        Team baseball = Team.create("", "", "Baseball", 0, SchoolYear.currentSchoolYear(), "Winter");
+        baseball.addCoach("email@Three.com");
+        baseball.addCoach("email@One.com");
 
-        Team rugby = new Team("", "", "Rugby", 0, LocalDateTime.now(), "Winter");
-        rugby.coaches.add("EmailTwo");
-        rugby.coaches.add("EmailThree");
-        rugby.save();
+        Team rugby = Team.create("", "", "Rugby", 0, SchoolYear.currentSchoolYear(), "Winter");
+        rugby.addCoach("Email@Two.com");
+        rugby.addCoach("Email@Three.com");
 
-        List<Team> teams = Team.findByCoach("emailOne");
+        List<Team> teams = Team.findByCoach("email@One.com");
         assertEquals(2, teams.size());
+        assertEquals("Winter", teams.get(0).season);
     }
 }
