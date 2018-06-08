@@ -97,10 +97,14 @@ public class Team extends BaseModel{
         this.save();
     }
 
+    public void removeCoach(String email) {
+        coaches.remove(email);
+        this.save();
+    }
+
     public static List<Team> findByCoach(String email){
         return find.query().where().contains("coaches", email).findList();
     }
 
     public static Finder<Integer, Team> find = new Finder<>(Team.class);
-
 }

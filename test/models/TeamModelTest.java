@@ -76,6 +76,22 @@ public class TeamModelTest extends WithApplication{
     }
 
     @Test
+    public void testAddAndRemoveCoach() {
+        Team team = Team.create("", "", "Basketball", 0, SchoolYear.currentSchoolYear(), "Winter");
+        team.addCoach("test@test.com");
+        assertEquals(1, team.coaches.size());
+
+        Team result = Team.find.byId(team.id);
+        assertEquals(1, result.coaches.size());
+
+        team.removeCoach("test@test.com");
+        assertFalse("Removed coach should not be in the list of coaches.", team.coaches.contains("test@test.com"));
+
+        result = Team.find.byId(team.id);
+        assertFalse("Removed coach should not be in the list of coaches.", result.coaches.contains("test@test.com"));
+    }
+
+    @Test
     public void testFindByCoach(){
         Team basketball = Team.create("", "", "Basketball", 0, SchoolYear.currentSchoolYear(), "Winter");
         basketball.addCoach("email@One.com");
