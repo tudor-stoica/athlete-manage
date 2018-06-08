@@ -41,15 +41,4 @@ public class TeamController extends Controller {
     public Result removeTeam(){
         return TODO;
     }
-
-    //Adds a student to a team
-    public Result addStudent(){
-        return TODO;
-    }
-
-    //Removes a student from a team
-    public Result removeStudent(){
-        return TODO;
-    }
-
 }
