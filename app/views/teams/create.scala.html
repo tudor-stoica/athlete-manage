@@ -8,7 +8,7 @@
 
     <body>
         <h1>Create Team</h1>
-        @helper.form(CSRF(routes.TeamController.saveTeam())){
+        @helper.form(CSRF(routes.TeamController.save())){
             @helper.inputText(teamForm("division"))
             @helper.inputText(teamForm("gender"))
             @helper.inputText(teamForm("sport"))
