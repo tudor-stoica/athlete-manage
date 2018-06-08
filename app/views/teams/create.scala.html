@@ -1,0 +1,22 @@
+@import views.html.helper.CSRF
+@import helper._
+@(teamForm : Form[Team])
+<html>
+    <head>
+        <title>Create Team</title>
+    </head>
+
+    <body>
+        <h1>Create Team</h1>
+        @helper.form(CSRF(routes.TeamController.saveTeam())){
+            @helper.inputText(teamForm("division"))
+            @helper.inputText(teamForm("gender"))
+            @helper.inputText(teamForm("sport"))
+            @helper.inputText(teamForm("defaultPoints"))
+            @helper.inputText(teamForm("schoolYear"))
+            @helper.inputText(teamForm("season"))
+
+            <input type="submit" value="Create Team">
+            }
+    </body>
+</html>
