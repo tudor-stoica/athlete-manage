@@ -1,22 +1,51 @@
-@import views.html.helper.CSRF
-@import helper._
 @(teamForm : Form[Team])
-<html>
-    <head>
-        <title>Create Team</title>
-    </head>
 
-    <body>
-        <h1>Create Team</h1>
-        @helper.form(CSRF(routes.TeamController.save())){
-            @helper.inputText(teamForm("division"))
-            @helper.inputText(teamForm("gender"))
-            @helper.inputText(teamForm("sport"))
-            @helper.inputText(teamForm("defaultPoints"))
-            @helper.inputText(teamForm("schoolYear"))
-            @helper.inputText(teamForm("season"))
+<script>
+    alert("Hamham");
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.dropdown-trigger');
+        var instances = M.Dropdown.init(elems, options);
+    });
+</script>
 
-            <input type="submit" value="Create Team">
-            }
-    </body>
-</html>
+@import helper._
+
+@implicitField = @{ FieldConstructor(formFieldTemplate.f) }
+
+@main("Create Team"){
+    <h1>Create Team</h1>
+
+    @form(CSRF(routes.TeamController.save())) {
+
+        @*Division*@
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Division</a>
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">Junior</a></li>
+            <li class="divider" tabindex="-1"></li>
+            <li><a href="#!">Senior</a></li>
+            <li class="divider" tabindex="-1"></li>
+            <li><a href="#!">Varsity</a></li>
+        </ul>
+
+        @*Gender*@
+        <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Gender</a>
+        <ul id='dropdown1' class='dropdown-content'>
+            <li><a href="#!">Male</a></li>
+            <li class="divider" tabindex="-1"></li>
+            <li><a href="#!">Female</a></li>
+            <li class="divider" tabindex="-1"></li>
+            <li><a href="#!">Mixed</a></li>
+        </ul>
+
+        @*Sport*@
+
+        @*Default Points*@
+
+        @*Season*@
+
+        <button class="waves-effect waves-light green btn" type="submit" name="action">
+            <i class="material-icons left">add</i>
+            Save
+        </button>
+    }
+}

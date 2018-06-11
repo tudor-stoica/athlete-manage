@@ -31,7 +31,7 @@ public class TeamController extends Controller {
         Form<Team> teamForm = formFactory.form(Team.class).bindFromRequest();
 
         if (teamForm.hasErrors()) {
-            return badRequest(create.render(teamForm));
+            return badRequest(views.html.teams.create.render(teamForm));
         }
 
         Team team = teamForm.get();
@@ -49,7 +49,7 @@ public class TeamController extends Controller {
         }
 
         Form<Team> teamForm = formFactory.form(Team.class).fill(team);
-        return ok(edit.render(teamForm));
+        return ok(views.html.teams.edit.render(teamForm));
     }
 
     //Deletes a team

@@ -1,16 +1,25 @@
 @(teams : List[Team])
 
-<html>
-    <head>
-        <title>All Teams</title>
-    </head>
-    <body>
-        <h1>All Teams</h1>
-
-        @for(team <- teams) {
-            <a href="">TODO</a>
-            <p>Team : @team.toString()</p>
-        }
-
-    </body>
-</html>
+@main("Teams") {
+    <div class="row">
+        <div class="col s12 offset-m3 m6">
+            <h1>Teams</h1>
+            <ul class="collection">
+            @for(team <- teams) {
+                <li class="collection-item">
+                    <div>
+                        @team.toString <span class="grey-text"></span>
+                    <a href="@routes.TeamController.edit(team.id)" class="secondary-content">
+                        <i class="material-icons left tooltipped" data-position="right" data-tooltip="Edit @team.toString">edit</i>
+                    </a>
+                    </div>
+                </li>
+            }
+            </ul>
+        </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large green" href="@routes.TeamController.create()"><i class="material-icons">
+            add</i></a>
+    </div>
+}
