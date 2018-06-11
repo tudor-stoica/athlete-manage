@@ -1,6 +1,8 @@
 $(document).ready(function(){
     $('.sidenav').sidenav();
     $('.tooltipped').tooltip();
+    $('select').formSelect();
+    $('.datepicker').datepicker();
 
     $("button#delete").click(function () {
         var url = $(this).data("url");

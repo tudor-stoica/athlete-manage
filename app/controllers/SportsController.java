@@ -30,6 +30,7 @@ public class SportsController extends Controller {
             return badRequest(create.render(sportForm));
         }
         Sport sport = sportForm.get();
+
         sport.save();
         return redirect(routes.SportsController.index());
     }
