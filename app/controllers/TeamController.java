@@ -1,5 +1,6 @@
 package controllers;
 
+import helpers.SchoolYear;
 import models.Team;
 import play.data.Form;
 import play.data.FormFactory;
@@ -17,24 +18,25 @@ public class TeamController extends Controller {
 
     //Show all teams to user
     public Result index(){
-        return ok(views.html.teams.index.render(Team.allTeams()));
+        return ok(views.html.teams.index.render(Team.find.all()));
     }
 
     //Creates a team
-    public Result create(){
+    public Result create() {
+        Team team = new Team(SchoolYear.currentSchoolYear());
         Form<Team> teamForm = formFactory.form(Team.class);
-        return ok(views.html.teams.create.render(teamForm));
+        return ok(views.html.teams.create.render(teamForm.fill(team)));
     }
 
     //Saves a team
     public Result save(){
         Form<Team> teamForm = formFactory.form(Team.class).bindFromRequest();
-
         if (teamForm.hasErrors()) {
             return badRequest(views.html.teams.create.render(teamForm));
         }
 
         Team team = teamForm.get();
+        team.schoolYear = SchoolYear.currentSchoolYear();
         team.save();
 
         return redirect(routes.TeamController.index());
@@ -53,7 +55,7 @@ public class TeamController extends Controller {
     }
 
     //Deletes a team
-    public Result remove(Integer id){
+    public Result remove(Integer id) {
         Team team = Team.find.byId(id);
 
         if (team == null) {

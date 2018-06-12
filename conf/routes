@@ -20,5 +20,6 @@ DELETE  /teams/remove/:id           controllers.TeamController.remove(id : Integ
 POST    /teams/save                 controllers.TeamController.save()
 PUT     /teams/edit/:id             controllers.TeamController.edit(id : Integer)
 
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

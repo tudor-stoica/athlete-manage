@@ -1,5 +1,7 @@
+@import java.time.LocalDateTime
 @(teamForm : Form[Team])
 @import helper._
+@import helpers.SchoolYear
 
 @implicitField = @{ FieldConstructor(formFieldTemplate.f) }
 
@@ -10,11 +12,11 @@
 
         @*Division*@
         <div class="input-field col s12">
-            <select>
-                <option value="" disabled selected>Please Select</option>
-                <option value="1">Junior</option>
-                <option value="2">Senior</option>
-                <option value="3">Varsity</option>
+            <select name="division">
+                <option value="" disabled selected>Select Division</option>
+                <option value="Jr.">Junior</option>
+                <option value="Sr.">Senior</option>
+                <option value="Varsity">Varsity</option>
             </select>
 
             <label>Division</label>
@@ -22,11 +24,11 @@
 
         @*Gender*@
         <div class="input-field col s12">
-            <select>
+            <select name="gender">
                 <option value="" disabled selected>Please Select</option>
-                <option value="1">Male</option>
-                <option value="2">Female</option>
-                <option value="3">Mixed</option>
+                <option value="Boys" @if(teamForm("gender").value == "Boys") { selected }>Male</option>
+                <option value="Girls">Female</option>
+                <option value="Co-Ed">Co-Ed</option>
             </select>
             <label>Gender</label>
         </div>
@@ -38,20 +40,15 @@
         @inputText(teamForm("defaultPoints"), 'class -> "validate")
 
         @*School Year*@
-        <div class="input-field col s12">
-            <label for="sport">Enter Date Created</label>
-            <input placeholder="Date of Team" type="text" class="datepicker">
-            sportForm(""), 'class -> "validate")
-        </div>
+        @inputText(teamForm("schoolYear"), 'class -> "validate")
 
         @*Season*@
         <div class="input-field col s12">
-            <select>
+            <select name="season">
                 <option value="" disabled selected>Please Select</option>
-                <option value="1">Summer</option>
-                <option value="2">Fall</option>
-                <option value="3">Winter</option>
-                <option value="3">Spring</option>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Spring">Spring</option>
             </select>
             <label>Season</label>
         </div>
@@ -61,4 +58,6 @@
             Save
         </button>
     }
+
+    @SchoolYear.formatSchoolYear(teamForm("schoolYear").value)
 }
