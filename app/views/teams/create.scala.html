@@ -16,6 +16,7 @@
                 <option value="2">Senior</option>
                 <option value="3">Varsity</option>
             </select>
+
             <label>Division</label>
         </div>
 
@@ -30,20 +31,17 @@
             <label>Gender</label>
         </div>
 
+        @*Sport*@
         @inputText(teamForm("sport"), 'class -> "validate")
 
         @*Default Points*@
-        <div class="input-field col s12">
-            <input placeholder="Default Points" id="sport" type="text" class="validate">
-            <label for="sport">Enter Point Value</label>
-        </div>
-
-
+        @inputText(teamForm("defaultPoints"), 'class -> "validate")
 
         @*School Year*@
         <div class="input-field col s12">
             <label for="sport">Enter Date Created</label>
             <input placeholder="Date of Team" type="text" class="datepicker">
+            sportForm(""), 'class -> "validate")
         </div>
 
         @*Season*@

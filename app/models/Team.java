@@ -21,10 +21,8 @@ public class Team extends BaseModel{
     public String sport;
     @Constraints.Required
     public String season;
-
     @OneToMany(cascade = CascadeType.REMOVE)
     public List<Spot> spots = new ArrayList<>();
-
     @Constraints.Required
     public LocalDateTime schoolYear;
     public String banquetInfo;
