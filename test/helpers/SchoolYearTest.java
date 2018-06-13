@@ -67,6 +67,22 @@ public class SchoolYearTest {
 
     }
 
+    @Test
+    public void testFormatLDTString1to8() {
+        String LDTString = LocalDateTime.of(2018, 2, 1, 1, 1).toString();
+        System.out.println("LDTString = " + LDTString);
+        String formattedLTDString = SchoolYear.formatSchoolYear(LDTString);
+        assertEquals("2017-2018", formattedLTDString);
+    }
+
+    @Test
+    public void testFormatLDTString9to12() {
+        String LDTString = LocalDateTime.of(2018, 10, 1, 1, 1).toString();
+        System.out.println("LDTString = " + LDTString);
+        String formattedLTDString = SchoolYear.formatSchoolYear(LDTString);
+        assertEquals("2018-2019", formattedLTDString);
+    }
+
 
 }
 

@@ -1,6 +1,7 @@
 package helpers;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class SchoolYear {
 
@@ -17,6 +18,11 @@ public class SchoolYear {
     public static LocalDateTime toSchoolYear(int year, int month, int dayOfMonth){
         LocalDateTime dateTime = LocalDateTime.of(year, month, dayOfMonth, 0, 0, 0);
         return toSchoolYear(dateTime);
+    }
+
+    public static String formatSchoolYear(String ldtString) {
+        LocalDateTime dateTime = LocalDateTime.parse(ldtString);
+        return formatSchoolYear(dateTime);
     }
 
     public static String formatSchoolYear(int year, int month, int dayOfMonth){
