@@ -31,12 +31,13 @@ public class TeamController extends Controller {
     //Saves a team
     public Result save(){
         Form<Team> teamForm = formFactory.form(Team.class).bindFromRequest();
+        teamForm.allErrors().forEach(System.out::println);
+        // why is 2017-09-01T00:00 invalid for schoolyear?
         if (teamForm.hasErrors()) {
             return badRequest(views.html.teams.create.render(teamForm));
         }
 
         Team team = teamForm.get();
-        team.schoolYear = SchoolYear.currentSchoolYear();
         team.save();
 
         return redirect(routes.TeamController.index());

@@ -14,9 +14,9 @@
         <div class="input-field col s12">
             <select name="division">
                 <option value="" disabled selected>Select Division</option>
-                <option value="Jr.">Junior</option>
-                <option value="Sr.">Senior</option>
-                <option value="Varsity">Varsity</option>
+                <option value="Jr." @if(teamForm("division").value == "Jr.") { selected }>Junior</option>
+                <option value="Sr." @if(teamForm("division").value == "Sr.") { selected }>Senior</option>
+                <option value="Varsity" @if(teamForm("division").value == "Varsity") { selected }>Varsity</option>
             </select>
 
             <label>Division</label>
@@ -27,14 +27,14 @@
             <select name="gender">
                 <option value="" disabled selected>Please Select</option>
                 <option value="Boys" @if(teamForm("gender").value == "Boys") { selected }>Male</option>
-                <option value="Girls">Female</option>
-                <option value="Co-Ed">Co-Ed</option>
+                <option value="Girls" @if(teamForm("gender").value == "Girls") { selected }>Female</option>
+                <option value="Co-Ed" @if(teamForm("gender").value == "Co-Ed") { selected }>Co-Ed</option>
             </select>
             <label>Gender</label>
         </div>
 
         @*Sport*@
-        @inputText(teamForm("sport"), 'class -> "validate")
+        @inputText(teamForm("sportName"), 'class -> "validate")
 
         @*Default Points*@
         @inputText(teamForm("defaultPoints"), 'class -> "validate")
@@ -46,9 +46,9 @@
         <div class="input-field col s12">
             <select name="season">
                 <option value="" disabled selected>Please Select</option>
-                <option value="Fall">Fall</option>
-                <option value="Winter">Winter</option>
-                <option value="Spring">Spring</option>
+                <option value="Fall" @if(teamForm("season").value == "Fall") { selected }>Fall</option>
+                <option value="Winter" @if(teamForm("season").value == "Winter") { selected }>Winter</option>>Winter</option>
+                <option value="Spring" @if(teamForm("season").value == "Spring") { selected }>Spring</option>>Spring</option>
             </select>
             <label>Season</label>
         </div>
@@ -59,5 +59,5 @@
         </button>
     }
 
-    @SchoolYear.formatSchoolYear(teamForm("schoolYear").value)
+
 }
