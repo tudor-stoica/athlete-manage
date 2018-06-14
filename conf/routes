@@ -18,7 +18,8 @@ GET     /teams                      controllers.TeamController.index()
 GET     /teams/create               controllers.TeamController.create()
 DELETE  /teams/remove/:id           controllers.TeamController.remove(id : Integer)
 POST    /teams/save                 controllers.TeamController.save()
-PUT     /teams/edit/:id             controllers.TeamController.edit(id : Integer)
+GET     /teams/edit/:id             controllers.TeamController.edit(id : Integer)
+PUT     /teams/edit                 controllers.TeamController.update
 
 
 # Map static resources from the /public folder to the /assets URL path

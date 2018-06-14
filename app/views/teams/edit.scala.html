@@ -1,1 +1,76 @@
 @(teamForm : Form[Team])
+
+@import helper._
+
+@implicitField = @{ FieldConstructor(formFieldTemplate.f) }
+
+@main("Create Team"){
+    <h1>Edit</h1>
+
+    @form(CSRF(routes.TeamController.update()), 'id -> "team-update-form") {
+
+        @*Division*@
+        <div class="input-field col s12">
+            <select name="division">
+                <option value="" disabled selected>Select Division</option>
+                <option value="Jr." @if(teamForm("division").value == "Jr.") { selected }>Junior</option>
+                <option value="Sr." @if(teamForm("division").value == "Sr.") { selected }>Senior</option>
+                <option value="Varsity" @if(teamForm("division").value == "Varsity") { selected }>Varsity</option>
+            </select>
+
+            <label>Division</label>
+        </div>
+
+        @*Gender*@
+        <div class="input-field col s12">
+            <select name="gender">
+                <option value="" disabled selected>Please Select</option>
+                <option value="Boys" @if(teamForm("gender").value == "Boys") { selected }>Male</option>
+                <option value="Girls" @if(teamForm("gender").value == "Girls") { selected }>Female</option>
+                <option value="Co-Ed" @if(teamForm("gender").value == "Co-Ed") { selected }>Co-Ed</option>
+            </select>
+            <label>Gender</label>
+        </div>
+
+        @*Sport*@
+        @inputText(teamForm("sportName"), 'class -> "validate")
+
+        @*Default Points*@
+        @inputText(teamForm("defaultPoints"), 'class -> "validate")
+
+        @*School Year*@
+        @inputText(teamForm("schoolYear"), 'class -> "validate")
+
+        @*Season*@
+        <div class="input-field col s12">
+            <select name="season">
+                <option value="" disabled selected>Please Select</option>
+                <option value="Fall" @if(teamForm("season").value == "Fall") { selected }>Fall</option>
+                <option value="Winter" @if(teamForm("season").value == "Winter") { selected }>Winter</option>>Winter</option>
+                <option value="Spring" @if(teamForm("season").value == "Spring") { selected }>Spring</option>>Spring</option>
+            </select>
+            <label>Season</label>
+        </div>
+
+
+        <input type="hidden" name="id" value='@teamForm.get().id'>
+    }
+
+    <button id="update"
+    class="waves-effect waves-light blue btn"
+    data-form-id="team-update-form"
+    data-r-url="@routes.TeamController.index()">
+        <i class="material-icons left">update</i>
+        Update
+    </button>
+
+    <a class="waves-effect waves-light btn" href="@routes.TeamController.index()">Cancel</a>
+
+    <button id="delete"
+    data-url="@helper.CSRF(routes.TeamController.remove(teamForm.get().id))"
+    data-r-url="@routes.TeamController.index()"
+    class="waves-effect waves-light btn red right">
+        <i class="material-icons left">delete</i>
+        Delete
+    </button>
+}
