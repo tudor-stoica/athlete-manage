@@ -34,7 +34,7 @@ public class Team extends BaseModel{
     public List<Spot> roster = new ArrayList<>();
 
     @Constraints.Required
-    public LocalDateTime schoolYear;
+    public String schoolYear;
 
     @Constraints.Required
     public Integer defaultPoints;
@@ -47,7 +47,7 @@ public class Team extends BaseModel{
     public String banquetInfo;
 
 
-    public Team(String division, String gender, String sportName, Integer defaultPoints, LocalDateTime schoolYear, String season){
+    public Team(String division, String gender, String sportName, Integer defaultPoints, String schoolYear, String season){
         this.division = division;
         this.gender = gender;
         this.sportName = sportName;
@@ -58,11 +58,11 @@ public class Team extends BaseModel{
 
     public Team() {}
 
-    public Team(LocalDateTime schoolYear) {
+    public Team(String schoolYear) {
         this.schoolYear = schoolYear;
     }
 
-    public static Team create(String division, String gender, String sportName, Integer defaultPoints, LocalDateTime schoolYear, String season) {
+    public static Team create(String division, String gender, String sportName, Integer defaultPoints, String schoolYear, String season) {
         Team t = new Team(division, gender, sportName, defaultPoints, schoolYear, season);
         t.save();
         return t;
@@ -73,6 +73,7 @@ public class Team extends BaseModel{
         Map<String, String> genderMap = new HashMap<String, String>() {{
             put("Female", "Girls'");
             put("Male", "Boys'");
+            put("Co-Ed", "Co-Ed");
         }};
 
         return division + " " + genderMap.get(gender) + " " + sportName;

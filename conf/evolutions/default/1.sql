@@ -57,7 +57,7 @@ create table team (
   gender                        varchar(255),
   sport_name                    varchar(255),
   season                        varchar(255),
-  school_year                   timestamp,
+  school_year                   varchar(255),
   default_points                integer,
   coaches                       array,
   banquet_info                  varchar(255),

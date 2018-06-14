@@ -1,6 +1,7 @@
 package controllers;
 
 import helpers.SchoolYear;
+import models.Sport;
 import models.Team;
 import play.data.Form;
 import play.data.FormFactory;
@@ -11,6 +12,10 @@ import views.html.sports.edit;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TeamController extends Controller {
 
@@ -24,18 +29,23 @@ public class TeamController extends Controller {
 
     //Creates a team
     public Result create() {
-        Team team = new Team(LocalDateTime.now());
+        List<Sport> sports = Sport.find.all();
+
+
+        SchoolYear schoolYear = new SchoolYear();
+        String formattedSchoolYear = schoolYear.formatSchoolYear(LocalDateTime.now());
+        Team team = new Team(formattedSchoolYear);
         Form<Team> teamForm = formFactory.form(Team.class);
-        return ok(views.html.teams.create.render(teamForm.fill(team)));
+        return ok(views.html.teams.create.render(teamForm.fill(team), sports));
     }
 
     //Saves a team
     public Result save(){
+        List<Sport> sports = Sport.find.all();
+
         Form<Team> teamForm = formFactory.form(Team.class).bindFromRequest();
-        teamForm.allErrors().forEach(System.out::println);
-        // why is 2017-09-01T00:00 invalid for schoolyear?
         if (teamForm.hasErrors()) {
-            return badRequest(views.html.teams.create.render(teamForm));
+            return badRequest(views.html.teams.create.render(teamForm, sports));
 
         }
         Team team = teamForm.get();

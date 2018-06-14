@@ -1,5 +1,4 @@
-@import java.time.LocalDateTime
-@(teamForm : Form[Team])
+@(teamForm : Form[Team])(sports: List[Sport])
 @import helper._
 @import helpers.SchoolYear
 
@@ -18,23 +17,34 @@
                 <option value="Sr." @if(teamForm("division").value == "Sr.") { selected }>Senior</option>
                 <option value="Varsity" @if(teamForm("division").value == "Varsity") { selected }>Varsity</option>
             </select>
-
             <label>Division</label>
+            <span class="helper-text red-text">@teamForm("gender").errors.mkString(", ")</span>
         </div>
 
         @*Gender*@
         <div class="input-field col s12">
             <select name="gender">
                 <option value="" disabled selected>Please Select</option>
-                <option value="Boys" @if(teamForm("gender").value == "Boys") { selected }>Male</option>
-                <option value="Girls" @if(teamForm("gender").value == "Girls") { selected }>Female</option>
+                <option value="Male" @if(teamForm("gender").value == "Male") { selected }>Male</option>
+                <option value="Female" @if(teamForm("gender").value == "Female") { selected }>Female</option>
                 <option value="Co-Ed" @if(teamForm("gender").value == "Co-Ed") { selected }>Co-Ed</option>
             </select>
             <label>Gender</label>
+            <span class="helper-text red-text">@teamForm("gender").errors.mkString(", ")</span>
         </div>
 
         @*Sport*@
-        @inputText(teamForm("sportName"), 'class -> "validate")
+        <div class="input-field col s12">
+            <select name="sportName">
+                <option value="" disabled selected>Please Select</option>
+                @for(sport <- sports) {
+                    <option value="@sport.name" @if(teamForm("sportName").value == sport.name) { selected }
+                        data-points="@sport.pointValue">@sport.name</option>
+                }
+            </select>
+            <label>Sport</label>
+            <span class="helper-text red-text">@teamForm("sportName").errors.mkString(", ")</span>
+        </div>
 
         @*Default Points*@
         @inputText(teamForm("defaultPoints"), 'class -> "validate")
@@ -51,6 +61,7 @@
                 <option value="Spring" @if(teamForm("season").value == "Spring") { selected }>Spring</option>>Spring</option>
             </select>
             <label>Season</label>
+            <span class="helper-text red-text">@teamForm("gender").errors.mkString(", ")</span>
         </div>
 
         <button class="waves-effect waves-light green btn" type="submit" name="action">

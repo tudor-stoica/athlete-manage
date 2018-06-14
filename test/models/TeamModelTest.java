@@ -19,7 +19,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testCanSaveAndFindTeam() {
-        new Team("Junior", "Male", "Basketball", 0, LocalDateTime.now(), "Winter").save();
+        new Team("Junior", "Male", "Basketball", 0, "", "Winter").save();
         Team team = Team.find.query().where()
                 .eq("division", "Junior")
                 .findOne();
@@ -30,7 +30,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testToString() {
-        Team team = new Team("Senior", "Female", "Basketball", 0, LocalDateTime.now(), "Winter");
+        Team team = new Team("Senior", "Female", "Basketball", 0, "", "Winter");
         assertEquals("Senior Girls' Basketball", team.toString());
     }
 
@@ -39,7 +39,7 @@ public class TeamModelTest extends WithApplication{
         Student student = new Student("Joey", "Test", "email", 0, 0, 11, "Male");
         student.save();
 
-        Team team = new Team("Senior", "Male", "Soccer", 0, LocalDateTime.now(), "Winter");
+        Team team = new Team("Senior", "Male", "Soccer", 0, "", "Winter");
         team.save();
 
         team.addPlayer(student);
@@ -60,7 +60,7 @@ public class TeamModelTest extends WithApplication{
     @Test
     public void testDeletePlayer(){
         Student student = Student.create("Joey", "Test", "email", 0, 0, 11, "Male");
-        Team team = Team.create("Senior", "Male", "Soccer", 5, SchoolYear.currentSchoolYear(), "Winter");
+        Team team = Team.create("Senior", "Male", "Soccer", 5, "", "Winter");
 
         team.addPlayer(student.id);
         assertEquals(1, team.roster.size());
@@ -77,7 +77,7 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testAddAndRemoveCoach() {
-        Team team = Team.create("", "", "Basketball", 0, SchoolYear.currentSchoolYear(), "Winter");
+        Team team = Team.create("", "", "Basketball", 0, "", "Winter");
         team.addCoach("test@test.com");
         assertEquals(1, team.coaches.size());
 
@@ -93,15 +93,15 @@ public class TeamModelTest extends WithApplication{
 
     @Test
     public void testFindByCoach(){
-        Team basketball = Team.create("", "", "Basketball", 0, SchoolYear.currentSchoolYear(), "Winter");
+        Team basketball = Team.create("", "", "Basketball", 0, "", "Winter");
         basketball.addCoach("email@One.com");
         basketball.addCoach("email@Two.com");
 
-        Team baseball = Team.create("", "", "Baseball", 0, SchoolYear.currentSchoolYear(), "Winter");
+        Team baseball = Team.create("", "", "Baseball", 0, "", "Winter");
         baseball.addCoach("email@Three.com");
         baseball.addCoach("email@One.com");
 
-        Team rugby = Team.create("", "", "Rugby", 0, SchoolYear.currentSchoolYear(), "Winter");
+        Team rugby = Team.create("", "", "Rugby", 0, "", "Winter");
         rugby.addCoach("Email@Two.com");
         rugby.addCoach("Email@Three.com");
 
