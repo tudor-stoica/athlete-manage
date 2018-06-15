@@ -57,13 +57,14 @@ public class TeamController extends Controller {
     //Edits a team
     public Result edit(Integer id){
         Team team = Team.find.byId(id);
+        List<Sport> sports = Sport.find.all();
 
         if (team == null) {
             return notFound();
         }
 
         Form<Team> teamForm = formFactory.form(Team.class).fill(team);
-        return ok(views.html.teams.edit.render(teamForm));
+        return ok(views.html.teams.edit.render(teamForm, sports));
     }
 
     //Updates a team
